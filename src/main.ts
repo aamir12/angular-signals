@@ -40,7 +40,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
       <h4>Array</h4>
       <ul>
 
-        <li *ngFor="let emp of employees()">
+        <li *ngFor="let emp of employees();index as i" (click)="removeEmployee(i)">
              {{ emp.name  }} {{ emp.contact }} 
         </li>
 
@@ -123,6 +123,10 @@ export class App {
 
     this.employees.mutate((empList) => empList.push(emp));
     this.employeeForm.reset();
+  }
+
+  removeEmployee(index: number) {
+    this.employees.mutate((empList) => empList.splice(index, 1));
   }
 
   person = signal({
