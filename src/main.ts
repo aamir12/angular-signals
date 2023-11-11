@@ -45,10 +45,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
         </li>
 
       </ul>
-      <form [formGroup]="employeeForm" (ngSubmit)="onFormSubmit()">
+      <form [formGroup]="employeeForm" >
         <input type="text" formControlName="name"  placeholder="Enter Name">
         <input type="text" formControlName="contact"  placeholder="Enter Contact">
-        <button type="submit"> Add </button>
+        <button type="button" (click)="addByMutate()"> Add by mutate</button>
+        <button type="button" (click)="addByUpdate()"> Add by update</button>
       </form>
 
       <h4>Object</h4>
@@ -112,7 +113,7 @@ export class App {
     contact: ['', [Validators.required]],
   });
 
-  onFormSubmit() {
+  addByMutate() {
     if (this.employeeForm.invalid) {
       return;
     }
@@ -122,6 +123,19 @@ export class App {
     };
 
     this.employees.mutate((empList) => empList.push(emp));
+    this.employeeForm.reset();
+  }
+
+  addByUpdate() {
+    if (this.employeeForm.invalid) {
+      return;
+    }
+    const emp = {
+      name: this.employeeForm.value.name!.toString(),
+      contact: this.employeeForm.value.contact!.toString(),
+    };
+
+    this.employees.update((empList) => [...empList, emp]);
     this.employeeForm.reset();
   }
 
