@@ -104,6 +104,7 @@ export class App {
   cities = ['Mumbai', 'Bhopal', 'Indore'];
 
   onCityChange(value: string) {
+    //this.city.update((oldCity) => value); //alternative
     this.city.set(value);
   }
 
