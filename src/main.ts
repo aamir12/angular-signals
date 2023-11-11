@@ -2,12 +2,18 @@ import 'zone.js/dist/zone';
 import { Component, computed, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { single } from 'rxjs';
 
 @Component({
   selector: 'my-app',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   template: `
     <div>
     <h3>Simple Example of singal and compute</h3>
@@ -66,6 +72,23 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
       <p>It is use to perform side effect.</p>
 
     </div>
+
+
+    <div>
+      <h3>Simple Form Control</h3>
+      <div>
+        <label>City</label> 
+        <select [ngModel]="city()" (change)="onCityChange($any($event.target).value)">
+          <option value=''>Selected City</option>
+          <option *ngFor="let c of cities" [value]="c">
+            {{c}}
+          </option>
+        </select>
+
+        {{ city() }}
+      </div>
+
+    </div>
   `,
 })
 export class App {
@@ -76,6 +99,13 @@ export class App {
 
   //On the basis of dependencies, It compute the new value every time
   fullName = computed(() => this.firstName() + ' ' + this.lastName());
+
+  city = signal<string>('');
+  cities = ['Mumbai', 'Bhopal', 'Indore'];
+
+  onCityChange(value: string) {
+    this.city.set(value);
+  }
 
   changeFirstName(value: string) {
     this.firstName.set(value);
