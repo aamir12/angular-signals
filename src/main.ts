@@ -8,12 +8,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { single } from 'rxjs';
+import { ChildComponent } from './child/child.component';
 
 @Component({
   selector: 'my-app',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, ChildComponent],
   template: `
     <div>
     <h3>Simple Example of singal and compute</h3>
@@ -64,6 +64,11 @@ import { single } from 'rxjs';
       Contact {{person().contact}}
 
       <button type="button" (click)="changeContact()">Change Contact</button>
+    </div>
+
+    <div>
+      <h3>Child Component</h3>
+      <app-child [emp]="person()"></app-child>
     </div>
 
 
@@ -180,7 +185,14 @@ export class App {
   });
 
   changeContact() {
+    //update: means completely create new object and array.It creates new memory reference.
+    // it will trigger ngOnChanges
+    //mutate: it only update value. It does not create new array and object.
+    //It does not change new memory reference
     this.person.mutate((p) => (p.contact = 'New-556565'));
+    // this.person.update((p) => {
+    //   return { ...p, contact: 'New-556565' };
+    // });
   }
 
   ////////////Effect//////////////
