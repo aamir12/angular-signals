@@ -4,6 +4,6 @@
 
 # Releted Repository
 
-[HTTP][https://github.com/aamir12/signal-rxjs]
+[HTTP](https://github.com/aamir12/signal-rxjs)
 
-[Behaviour Subject and Signal][https://github.com/aamir12/signals-rxjs]
+[Behaviour Subject and Signal](https://github.com/aamir12/signals-rxjs)
