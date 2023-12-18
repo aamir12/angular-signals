@@ -187,12 +187,15 @@ export class App {
   changeContact() {
     //update: means completely create new object and array.It creates new memory reference.
     // it will trigger ngOnChanges
+
+    this.person.update((p) => {
+      return { ...p, contact: 'New-556565' };
+    });
+
     //mutate: it only update value. It does not create new array and object.
     //It does not change new memory reference
-    this.person.mutate((p) => (p.contact = 'New-556565'));
-    // this.person.update((p) => {
-    //   return { ...p, contact: 'New-556565' };
-    // });
+    //It will not trigger ngOnChanges
+    //this.person.mutate((p) => (p.contact = 'New-556565'));
   }
 
   ////////////Effect//////////////
